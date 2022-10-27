@@ -14,9 +14,10 @@ public class Login_StepDefinitions {
 
     LoginPages loginPages = new LoginPages();
     Actions actions = new Actions(Driver.getDriver());
-    @Given("user is on the library login page")
-    public void user_is_on_the_library_login_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("web.url"));
+
+    @Given("user is on the login page")
+    public void userIsOnTheLoginPage() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
     @When("user enters username {string}")
     public void user_enters_username(String string) {
@@ -36,7 +37,6 @@ public class Login_StepDefinitions {
         Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains("login=yes"));
 
     }
-
 
 
 
