@@ -1,51 +1,42 @@
 package com.cydeo.step_definitions;
 
+import com.cydeo.pages.LoginPages;
+import com.cydeo.utilities.ConfigurationReader;
+import com.cydeo.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.interactions.Actions;
 
 public class Login_StepDefinitions {
 
+    LoginPages loginPages = new LoginPages();
+    Actions actions = new Actions(Driver.getDriver());
     @Given("user is on the library login page")
     public void user_is_on_the_library_login_page() {
-        System.out.println();
+        Driver.getDriver().get(ConfigurationReader.getProperty("web.url"));
     }
-    @When("user enters HR username")
-    public void user_enters_hr_username() {
-        System.out.println("User enters HR username");
-
+    @When("user enters username {string}")
+    public void user_enters_username(String string) {
+        actions.click(loginPages.emailInputBox).sendKeys(string).perform();
     }
-    @And("user enters HR password")
-    public void user_enters_hr_password() {
-        System.out.println("User enters HR password");
-
+    @When("user enters password {string}")
+    public void user_enters_password(String string) {
+      actions.click(loginPages.passwordInputBox).sendKeys(string).perform();
+    }
+    @When("user clicks the login button")
+    public void user_clicks_the_login_button() {
+       actions.click(loginPages.loginBtn).perform();
     }
     @Then("user should launch to the home page")
     public void user_should_launch_to_the_home_page() {
-        System.out.println("user should launch to the home page");
+
+        Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains("login=yes"));
+
     }
 
-
-    @When("user enters Marketing username")
-    public void user_enters_marketing_username() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @And("user enters Marketing password")
-    public void user_enters_marketing_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @And("user enters Helpdesk username")
-    public void user_enters_helpdesk_username() {
-        System.out.println("user enters Helpdesk username");
-    }
-    @When("user enters Helpdesk password")
-    public void user_enters_helpdesk_password() {
-        System.out.println("user enters Helpdesk password");
-    }
 
 
 
